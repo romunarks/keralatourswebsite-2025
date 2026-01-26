@@ -5,19 +5,34 @@
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<title>Kerala Tours AQP</title>
+		<meta name="description" content="Kerala Tours AQP" />
+		<meta name="keywords" content="Kerala Tours AQP" />
+		<meta name="author" content="Rodrigo Prieto" />
+		<meta name="robots" content="index, follow" />
+		<meta name="googlebot" content="index, follow" />
+		<meta name="google" content="notranslate" />
+		<meta name="google" content="notranslate" />
 	</head>
 	<body>
 		<slot />
 	</body>
 </html>
 
-<style>
+<style is:global>
+@import 'tailwindcss';
+@import 'tailwind-animations';
 	html,
 	body {
 		margin: 0;
 		width: 100%;
 		height: 100%;
+		font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+		background-color: #1a1a1a;
+		color: #e5e5e5;
+	}
+
+	* {
+		box-sizing: border-box;
 	}
 </style>
