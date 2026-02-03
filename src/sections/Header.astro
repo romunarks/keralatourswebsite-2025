@@ -1,0 +1,89 @@
+---
+// src/sections/Header.astro
+const navItems = [
+  { name: "Inicio", href: "#" },
+  { name: "Destinos", href: "#destinos" },
+  { name: "Paquetes", href: "#paquetes" },
+  { name: "Contacto", href: "#contacto" },
+];
+---
+
+<header
+  id="landing-header"
+  class="fixed top-0 left-0 w-full z-50 transition-all duration-300 border-b border-transparent"
+>
+  <div id="header-inner" class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+    
+    
+    <a href="/" class="flex items-center gap-2 relative z-50">
+       <span class="animate-jiggle">
+        <img src="/logo.png" alt="Kerala Tours Logo" class="h-24 w-auto object-contain">
+      </span>
+      
+    </a>
+   
+
+    <nav class="hidden md:flex gap-8 items-center">
+      {navItems.map((item) => (
+        <a
+          href={item.href}
+          class="text-lg font-medium text-gray-200 hover:text-[#FF9A09] transition-colors relative group"
+        >
+          {item.name}
+          <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#FF9A09] transition-all duration-300 group-hover:w-full"></span>
+        </a>
+      ))}
+    </nav>
+
+    <div class="hidden md:block">
+      <a
+        href="#contacto"
+        class="bg-gradient-to-r from-[#AE333C] to-[#FF9A09] hover:from-[#CD7634] hover:to-[#C46A71] text-white px-6 py-2.5 rounded-full font-bold transition-all transform hover:scale-105 shadow-lg shadow-[#AE333C]/40"
+      >
+        Reservar
+      </a>
+    </div>
+
+    <button id="menu-btn" class="md:hidden text-white focus:outline-none relative z-50">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+  </div>
+
+  <div
+    id="mobile-menu"
+    class="fixed inset-0 bg-[#AE333C] bg-opacity-95 backdrop-blur-xl flex flex-col justify-center items-center gap-8 text-xl translate-x-full transition-transform duration-300 md:hidden"
+  >
+    {navItems.map((item) => (
+      <a href={item.href} class="text-white hover:text-[#FF9A09] font-bold text-2xl">
+        {item.name}
+      </a>
+    ))}
+  </div>
+</header>
+
+<script>
+  const header = document.getElementById("landing-header");
+  const headerInner = document.getElementById("header-inner");
+  const menuBtn = document.getElementById("menu-btn");
+  const mobileMenu = document.getElementById("mobile-menu");
+
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 50) {
+      header?.classList.add("bg-[#1a1a1a]/90", "backdrop-blur-md");
+      header?.classList.remove("border-transparent");
+      headerInner?.classList.add("py-2");
+      headerInner?.classList.remove("py-4");
+    } else {
+      header?.classList.remove("bg-[#1a1a1a]/90", "backdrop-blur-md");
+      header?.classList.add("border-transparent");
+      headerInner?.classList.remove("py-2");
+      headerInner?.classList.add("py-4");
+    }
+  });
+
+  menuBtn?.addEventListener("click", () => {
+    mobileMenu?.classList.toggle("translate-x-full");
+  });
+</script>
