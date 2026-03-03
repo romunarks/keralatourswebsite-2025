@@ -1,0 +1,198 @@
+---
+// src/sections/Destinations.astro
+import { Image } from 'astro:assets';
+
+// 1. TUS IMÁGENES LIMPIAS
+import imgColca from '../assets/destinos/colca_canyon.webp';
+import imgMajes from '../assets/destinos/majes_aqp.webp';
+import imgTurquia from '../assets/destinos/turquia_eu.webp';
+import imgCusco from '../assets/destinos/cuzco_flyer.webp';
+
+// 2. DATOS EXTRAÍDOS DE TUS FLYERS (Agregué la propiedad "category")
+const destinations = [
+  {
+    title: "Colca Majestuoso",
+    category: "nacional", // <-- CLAVE PARA EL FILTRO
+    img: imgColca,
+    price: "S/ 290",
+    duration: "2D / 1N",
+    desc: "Arequipa, Chivay, Cañón del Colca, Cruz del Cóndor y Yanque. Salida grupal: 24 de Abril.",
+    tag: "Próxima Salida",
+    tagColor: "bg-[#AE333C]" 
+  },
+  {
+    title: "Valle de Majes",
+    category: "nacional", // <-- CLAVE PARA EL FILTRO
+    img: imgMajes,
+    price: "S/ 350",
+    duration: "2D / 1N",
+    desc: "Ruta del Pisco, huellas de dinosaurios y encanto natural. Salidas todos los fines de semana.",
+    tag: "Escapada",
+    tagColor: "bg-[#FF9A09]" 
+  },
+  {
+    title: "Turquía & Islas Griegas",
+    category: "internacional", // <-- CLAVE PARA EL FILTRO
+    img: imgTurquia,
+    price: "$ 5,500", 
+    duration: "20 Días",
+    desc: "Estambul, Capadocia, Pamukkale y un crucero de 7 noches por Mykonos y Santorini. Salida: 13 de Mayo 2026.",
+    tag: "Internacional",
+    tagColor: "bg-blue-600"
+  },
+  {
+    title: "Cusco Imperial",
+    category: "nacional", // <-- CLAVE PARA EL FILTRO
+    img: imgCusco,
+    price: "S/ 2,100",
+    duration: "4D / 3N",
+    desc: "Vuelos incluidos, City Tour, Valle Sagrado y Full Day Machu Picchu. Salida: 01 de Junio.",
+    tag: "Todo Incluido",
+    tagColor: "bg-emerald-600"
+  }
+];
+---
+
+<section id="destinos" class="relative py-24 bg-[#0a0a0a] overflow-hidden">
+  
+  <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-[#AE333C]/5 rounded-full blur-[120px] pointer-events-none -translate-y-1/2 translate-x-1/3"></div>
+  <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[#FF9A09]/5 rounded-full blur-[120px] pointer-events-none translate-y-1/3 -translate-x-1/3"></div>
+
+  <div class="relative z-10 max-w-[1400px] mx-auto px-6">
+    
+    <div class="text-center mb-10 space-y-4 animate-fade-in-up">
+      <span class="text-[#FF9A09] font-bold tracking-[0.2em] uppercase text-xs md:text-sm">Tus próximas vacaciones</span>
+      <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight">
+        Paquetes <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#AE333C] to-[#FF9A09]">Destacados</span>
+      </h2>
+      <p class="text-gray-400 max-w-2xl mx-auto text-base md:text-lg font-light text-balance">
+        Desde escapadas de fin de semana hasta viajes internacionales inolvidables. Con Kerala Tours tu única preocupación es disfrutar.
+      </p>
+    </div>
+
+    <div class="flex justify-center gap-3 sm:gap-6 mb-12 animate-fade-in-up delay-100">
+      <button 
+        class="filter-btn active px-6 py-2.5 sm:px-8 sm:py-3 rounded-full font-bold text-sm md:text-base transition-all duration-300 bg-gradient-to-r from-[#AE333C] to-[#FF9A09] text-white shadow-lg shadow-[#AE333C]/20 scale-105"
+        data-filter="nacional"
+      >
+        Nacionales
+      </button>
+      
+      <button 
+        class="filter-btn px-6 py-2.5 sm:px-8 sm:py-3 rounded-full font-bold text-sm md:text-base transition-all duration-300 bg-white/5 border border-white/20 text-gray-300 hover:bg-white/10"
+        data-filter="internacional"
+      >
+        Internacionales
+      </button>
+    </div>
+
+    <div id="destinations-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 xl:gap-8">
+      {destinations.map((dest) => (
+        <article 
+          class="destino-card group relative flex flex-col bg-white/[0.03] border border-white/10 rounded-3xl overflow-hidden hover:bg-white/[0.05] hover:border-white/20 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.7)]"
+          data-category={dest.category}
+        >
+          
+          <div class="relative h-64 overflow-hidden">
+            <Image 
+              src={dest.img}
+              alt={dest.title}
+              width={600}
+              height={400}
+              format="avif"
+              quality={80}
+              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 will-change-transform"
+            />
+            
+            <div class={`absolute top-4 left-4 ${dest.tagColor} text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full shadow-lg`}>
+              {dest.tag}
+            </div>
+
+            <div class="absolute bottom-4 right-4 bg-black/70 backdrop-blur-md text-white text-xs font-semibold px-3 py-1.5 rounded-full border border-white/10 flex items-center gap-1.5">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 text-[#FF9A09]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+              {dest.duration}
+            </div>
+          </div>
+
+          <div class="flex flex-col flex-grow p-6">
+            <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-[#FF9A09] transition-colors">{dest.title}</h3>
+            <p class="text-sm text-gray-400 mb-6 flex-grow leading-relaxed">{dest.desc}</p>
+            
+            <div class="flex items-end justify-between border-t border-white/10 pt-5 mt-auto">
+              <div>
+                <p class="text-[11px] text-gray-500 uppercase tracking-widest font-semibold mb-1">Por persona</p>
+                <p class="text-2xl font-bold text-white">{dest.price}</p>
+              </div>
+              
+              <a href={`https://wa.me/51953530209?text=Hola%20Kerala%20Tours,%20me%20interesa%20recibir%20información%20del%20paquete:%20*${dest.title}*`} target="_blank" class="h-12 w-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white overflow-hidden group-hover:bg-gradient-to-r group-hover:from-[#AE333C] group-hover:to-[#FF9A09] group-hover:border-[#AE333C] transition-all duration-300 shadow-lg active:scale-90">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transform group-hover:rotate-45 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+              </a>
+            </div>
+          </div>
+
+        </article>
+      ))}
+    </div>
+
+    <div class="mt-16 text-center">
+      <a href="https://wa.me/51953530209?text=Hola%20Kerala%20Tours,%20quisiera%20solicitar%20su%20catálogo%20completo%20de%20viajes." target="_blank" class="inline-flex items-center gap-3 px-8 py-4 rounded-full border border-white/20 bg-transparent text-white font-semibold transition-all hover:bg-white hover:text-black hover:scale-105 active:scale-95">
+        Solicitar Catálogo Completo
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  const buttons = document.querySelectorAll('.filter-btn');
+  const cards = document.querySelectorAll('.destino-card') as NodeListOf<HTMLElement>;
+
+  // Clases CSS para el botón activo y el inactivo
+  const activeClasses = ['bg-gradient-to-r', 'from-[#AE333C]', 'to-[#FF9A09]', 'text-white', 'shadow-lg', 'shadow-[#AE333C]/20', 'scale-105', 'border-transparent'];
+  const inactiveClasses = ['bg-white/5', 'border', 'border-white/20', 'text-gray-300', 'hover:bg-white/10'];
+
+  // INICIO: Mostrar solo los Nacionales al cargar la página
+  cards.forEach(card => {
+    if (card.getAttribute('data-category') === 'nacional') {
+      card.style.display = 'flex';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+
+  // Cuando el usuario hace clic en los botones
+  buttons.forEach(button => {
+    button.addEventListener('click', () => {
+      const filter = button.getAttribute('data-filter');
+
+      // 1. Reiniciar estilo de todos los botones a "inactivo"
+      buttons.forEach(btn => {
+        btn.classList.remove(...activeClasses);
+        btn.classList.add(...inactiveClasses);
+      });
+
+      // 2. Poner estilo "activo" al botón presionado
+      button.classList.remove(...inactiveClasses);
+      button.classList.add(...activeClasses);
+
+      // 3. Filtrar las tarjetas
+      cards.forEach(card => {
+        const category = card.getAttribute('data-category');
+        
+        if (category === filter) {
+          // Si la categoría coincide, la mostramos con una pequeña animación
+          card.style.display = 'flex';
+          card.style.opacity = '0';
+          setTimeout(() => {
+            card.style.transition = 'opacity 0.4s ease';
+            card.style.opacity = '1';
+          }, 50);
+        } else {
+          // Si no coincide, la ocultamos
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+</script>
