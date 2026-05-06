@@ -4,7 +4,7 @@ import type { ImageMetadata } from 'astro';
 import imgColca from '../assets/destinos/colca_canyon.webp';
 import imgMajes from '../assets/destinos/majes_aqp.webp';
 import imgTurquia from '../assets/destinos/turquia_eu.webp';
-import imgCusco from '../assets/destinos/cuzco_flyer.webp';
+import imgCusco from '../assets/destinos/cuzcoLandscape.webp';
 
 // 1. REGLAS ACTUALIZADAS (Interface)
 export interface PaqueteTour {

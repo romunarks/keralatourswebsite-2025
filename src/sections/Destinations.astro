@@ -88,45 +88,67 @@ const destinations = [
 
     <div id="destinations-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 xl:gap-8">
       {destinations.map((dest) => (
-        <article 
-          class="destino-card group relative flex flex-col bg-white/[0.03] border border-white/10 rounded-3xl overflow-hidden hover:bg-white/[0.05] hover:border-white/20 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.7)]"
+       <article 
+          class="destino-card group relative h-[450px] flex flex-col rounded-3xl overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.7)] border border-white/10"
           data-category={dest.category}
         >
+          <!-- 1. IMÁGENES PERFECTAS: Resolución subida a 800, Calidad 100 y object-center -->
+          <Image 
+            src={dest.img}
+            alt={dest.title}
+            width={800}
+            height={800}
+            format="avif"
+            quality={100}
+            class="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-110 will-change-transform"
+          />
           
-          <div class="relative h-64 overflow-hidden">
-            <Image 
-              src={dest.img}
-              alt={dest.title}
-              width={600}
-              height={400}
-              format="avif"
-              quality={80}
-              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 will-change-transform"
-            />
-            
-            <div class={`absolute top-4 left-4 ${dest.tagColor} text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full shadow-lg`}>
+          <!-- 2. DEGRADADO OSCURO (Un poco más transparente para lucir la foto) -->
+          <div class="absolute inset-0 bg-gradient-to-t from-[#0d0f14] via-[#0d0f14]/60 to-transparent opacity-90 transition-opacity duration-500"></div>
+
+          <!-- 3. ETIQUETAS SUPERIORES -->
+          <div class="relative z-10 flex justify-between items-start p-6">
+            <div class={`${dest.tagColor} text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full shadow-lg`}>
               {dest.tag}
             </div>
-
-            <div class="absolute bottom-4 right-4 bg-black/70 backdrop-blur-md text-white text-xs font-semibold px-3 py-1.5 rounded-full border border-white/10 flex items-center gap-1.5">
+            
+            <div class="bg-black/50 backdrop-blur-md text-white text-xs font-semibold px-3 py-1.5 rounded-full border border-white/10 flex items-center gap-1.5">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 text-[#FF9A09]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
               {dest.duration}
             </div>
           </div>
 
-          <div class="flex flex-col flex-grow p-6">
-            <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-[#FF9A09] transition-colors">{dest.title}</h3>
-            <p class="text-sm text-gray-400 mb-6 flex-grow leading-relaxed">{dest.desc}</p>
+          <!-- 4. CONTENIDO INFERIOR -->
+          <div class="relative z-10 flex flex-col justify-end flex-grow p-6 mt-auto">
+            <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-[#FF9A09] transition-colors drop-shadow-lg">{dest.title}</h3>
             
-            <div class="flex items-end justify-between border-t border-white/10 pt-5 mt-auto">
+            <p class="text-sm text-gray-300 mb-5 line-clamp-2 leading-relaxed drop-shadow-md">{dest.desc}</p>
+            
+            <div class="flex items-end justify-between border-t border-white/20 pt-5">
+              
+              <!-- TU PRECIO -->
               <div>
-                <p class="text-[11px] text-gray-500 uppercase tracking-widest font-semibold mb-1">Por persona</p>
-                <p class="text-2xl font-bold text-white">{dest.price}</p>
+                <p class="text-[11px] text-gray-400 uppercase tracking-widest font-semibold mb-1 drop-shadow-md">Por persona</p>
+                <p class="text-2xl font-bold text-white drop-shadow-md">{dest.price}</p>
               </div>
               
-              <a href={`https://wa.me/51953530209?text=Hola%20Kerala%20Tours,%20me%20interesa%20recibir%20información%20del%20paquete:%20*${dest.title}*`} target="_blank" class="h-12 w-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white overflow-hidden group-hover:bg-gradient-to-r group-hover:from-[#AE333C] group-hover:to-[#FF9A09] group-hover:border-[#AE333C] transition-all duration-300 shadow-lg active:scale-90">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transform group-hover:rotate-45 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+              <!-- TU BOTÓN CON TU SELLO (Naranja/Rojo cubriendo todo el botón) -->
+              <a 
+                href={`https://wa.me/51953530209?text=Hola%20Kerala%20Tours,%20me%20interesa%20recibir%20información%20del%20paquete:%20*${dest.title}*`} 
+                target="_blank" 
+                class="group/btn relative overflow-hidden flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white text-sm font-bold transition-all duration-300 active:scale-95 hover:border-transparent hover:shadow-lg hover:shadow-[#AE333C]/40"
+              >
+                <!-- Capa de pintura mágica (Invisible al inicio, aparece en el hover) -->
+                <div class="absolute inset-0 bg-gradient-to-r from-[#AE333C] to-[#FF9A09] opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300"></div>
+                
+                <!-- Texto e Ícono (Sobre la capa mágica) -->
+                <span class="relative z-10 flex items-center gap-2">
+                  Consultar
+                  <!-- La flechita hace un pequeño salto hacia adelante -->
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transform group-hover/btn:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                </span>
               </a>
+
             </div>
           </div>
 
@@ -135,9 +157,17 @@ const destinations = [
     </div>
 
     <div class="mt-16 text-center">
-      <a href="https://wa.me/51953530209?text=Hola%20Kerala%20Tours,%20quisiera%20solicitar%20su%20catálogo%20completo%20de%20viajes." target="_blank" class="inline-flex items-center gap-3 px-8 py-4 rounded-full border border-white/20 bg-transparent text-white font-semibold transition-all hover:bg-white hover:text-black hover:scale-105 active:scale-95">
-        Solicitar Catálogo Completo
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+      <a href="/paquetes" class="group/btn relative overflow-hidden inline-flex items-center gap-3 px-8 py-4 rounded-full border border-white/20 bg-white/5 backdrop-blur-md text-white font-semibold transition-all duration-300 hover:scale-105 hover:border-transparent hover:shadow-xl hover:shadow-[#AE333C]/40 active:scale-95">
+        
+        <!-- Capa de pintura mágica naranja/roja (Aparece al hacer hover) -->
+        <div class="absolute inset-0 bg-gradient-to-r from-[#AE333C] to-[#FF9A09] opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300"></div>
+        
+        <!-- Contenido (Debe tener z-10 para estar por encima del color) -->
+        <span class="relative z-10 flex items-center gap-3">
+          Entrar a todos los paquetes
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transform group-hover/btn:translate-x-2 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+        </span>
+        
       </a>
     </div>
 

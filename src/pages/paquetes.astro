@@ -1,17 +1,20 @@
-    ---
-    // src/pages/paquetes.astro
-    import Layout from '../layouts/Layout.astro';
-    import Header from '../sections/Header.astro';
-    import Footer from '../sections/Footer.astro';
-    import Catalog from '../sections/Catalog.astro';
-    ---
+---
+// src/pages/paquetes.astro
+import Layout from '../layouts/Layout.astro';
+import Header from '../sections/Header.astro';
+import Footer from '../sections/Footer.astro';
+import Catalog from '../sections/Catalog.astro';
+---
 
-    <Layout title="Catálogo de Paquetes - Kerala Tours AQP">
-        <Header />
-        
-        <main class="pt-24 bg-[#1a1a1a] min-h-screen">
-            <Catalog />
-        </main>
+<Layout
+	title="Catálogo de paquetes | Kerala Tours AQP"
+	description="Explora nuestros paquetes turísticos con itinerarios claros, salidas desde Arequipa y atención personalizada. Encuentra tu próximo viaje con Kerala Tours AQP."
+>
+	<Header />
 
-        <Footer />  
-    </Layout>
+	<main class="pt-24 bg-[#1a1a1a] min-h-screen">
+		<Catalog />
+	</main>
+
+	<Footer />
+</Layout>

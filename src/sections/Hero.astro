@@ -29,7 +29,8 @@ const slides = [
         sizes="100vw"
         quality={80} 
         format="avif"
-        loading={index === 0 ? "eager" : "lazy"} 
+        loading="eager"     
+        fetchpriority="high"
         class={`hero-bg absolute inset-0 w-full h-full object-cover object-center animate-zoom-slow transition-opacity duration-[2000ms] ease-in-out ${index === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
       />
     ))}
